@@ -1,7 +1,7 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -20,4 +20,66 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
+
+//use dayjs to show time and date
+function displayTime() {
+  var today = dayjs();
+  $('#currentDay').text(today.format('MMM D,YYYY [at] h:mm:ss A'));
+}
+displayTime();
+setInterval(displayTime,1000);
+
+$(document).ready(function(){
+  $(".saveBtn"). on('click',function(){
+    var time = $(this).parent().attr('id');
+    var value = $(this).siblings('.description').val();
+
+    //save in localStorage
+    localStorage.setItem(time,value);
+  });
+
+  //choose color class
+  function timeBlockColor() {
+    var currentHour = dayjs().hour();
+    //test currentHour shows in 24 hours time
+    console.log(currentHour); 
+  
+    $('.time-block').each(function(){
+      //get hour value from time-block
+      var blockHour = parseInt($(this).attr('id').split("-")[1]);
+      //test to show time block hours in 24-hours time
+      console.log(blockHour);
+      
+      //choose class to apply color
+      if(blockHour < currentHour) {
+        $(this). addClass('past');
+      }
+      else if(blockHour === currentHour) {
+        $(this).removeClass("past");
+        $(this).addClass("present");
+      }
+      else{
+        $(this).removeClass("past");
+        $(this).removeClass("present");
+        $(this).addClass("future");
+      }
+    });
+  }
+  timeBlockColor();
+  // check the color class every 1 minute
+  setInterval(timeBlockColor,60000);
+
+  //display any saved description
+  $("#hour-9 .description").val(localStorage.getItem("hour-9"));
+  $("#hour-10 .description").val(localStorage.getItem("hour-10"));
+  $("#hour-11 .description").val(localStorage.getItem("hour-11"));
+  $("#hour-12 .description").val(localStorage.getItem("hour-12"));
+  $("#hour-13 .description").val(localStorage.getItem("hour-13"));
+  $("#hour-14 .description").val(localStorage.getItem("hour-14"));
+  $("#hour-15 .description").val(localStorage.getItem("hour-15"));
+  $("#hour-16 .description").val(localStorage.getItem("hour-16"));
+  $("#hour-17 .description").val(localStorage.getItem("hour-17"));
+
+})
+
