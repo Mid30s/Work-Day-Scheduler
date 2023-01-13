@@ -25,18 +25,19 @@
 //use dayjs to show time and date
 function displayTime() {
   var today = dayjs();
-  $('#currentDay').text(today.format('MMM D,YYYY [at] h:mm:ss A'));
+  $('#currentDay').text(today.format('dddd,D MMM YYYY [at] h:mm:ss A'));
 }
 displayTime();
 setInterval(displayTime,1000);
 
 $(document).ready(function(){
   $(".saveBtn"). on('click',function(){
+    // jQuery traversing to select html elements
     var time = $(this).parent().attr('id');
-    var value = $(this).siblings('.description').val().trim();
+    var text = $(this).siblings('.description').val().trim();
 
     //save in localStorage
-    localStorage.setItem(time,value);
+    localStorage.setItem(time,text);
   });
 
   //choose color class
@@ -67,8 +68,8 @@ $(document).ready(function(){
     });
   }
   timeBlockColor();
-  // check the color class every 1 minute
-  setInterval(timeBlockColor,60000);
+  // check the color class every 30 seconds
+  setInterval(timeBlockColor,30000);
 
   //display any saved description
   $("#hour-9 .description").val(localStorage.getItem("hour-9"));
@@ -80,13 +81,13 @@ $(document).ready(function(){
   $("#hour-15 .description").val(localStorage.getItem("hour-15"));
   $("#hour-16 .description").val(localStorage.getItem("hour-16"));
   $("#hour-17 .description").val(localStorage.getItem("hour-17"));
-
 })
 
-//clear local storage at 00:00 midnight each day
+//clear local storage at 00:00 midnight each day and check time every 30 seconds
 setInterval(function(){
   var hour = dayjs().hour();
   var minute = dayjs().minute();
+  //test
   console.log(hour,minute)
   
   if (hour == 0 && minute == 0) {
