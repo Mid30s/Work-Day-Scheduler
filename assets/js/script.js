@@ -33,7 +33,7 @@ setInterval(displayTime,1000);
 $(document).ready(function(){
   $(".saveBtn"). on('click',function(){
     var time = $(this).parent().attr('id');
-    var value = $(this).siblings('.description').val();
+    var value = $(this).siblings('.description').val().trim();
 
     //save in localStorage
     localStorage.setItem(time,value);
@@ -82,4 +82,15 @@ $(document).ready(function(){
   $("#hour-17 .description").val(localStorage.getItem("hour-17"));
 
 })
+
+//clear local storage at 00:00 midnight each day
+setInterval(function(){
+  var hour = dayjs().hour();
+  var minute = dayjs().minute();
+  console.log(hour,minute)
+  
+  if (hour == 0 && minute == 0) {
+    localStorage.clear();
+  }    
+},30000)
 
