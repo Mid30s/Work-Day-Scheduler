@@ -36,6 +36,9 @@ $(document).ready(function(){
     var time = $(this).parent().attr('id');
     var text = $(this).siblings('.description').val().trim();
 
+    //test - click save button
+    console.log(time,text);
+
     //save in localStorage
     localStorage.setItem(time,text);
   });
