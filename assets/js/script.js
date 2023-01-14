@@ -71,7 +71,7 @@ $(document).ready(function(){
   // check the color class every 30 seconds
   setInterval(timeBlockColor,30000);
 
-  //display any saved description
+  //display all text in description
   $("#hour-9 .description").val(localStorage.getItem("hour-9"));
   $("#hour-10 .description").val(localStorage.getItem("hour-10"));
   $("#hour-11 .description").val(localStorage.getItem("hour-11"));

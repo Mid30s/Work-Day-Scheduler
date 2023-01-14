@@ -43,7 +43,7 @@ N/A
 
 To view this application,the following image shows the landing page of the application, or click on https://mid30s.github.io/Work-Day-Scheduler/
 
-![work-day-scheduler](./assets/images/password-generator-1.png)
+![work-day-scheduler](./assets/images/work-day-scheduler.gif)
 
 ## Credits
 
