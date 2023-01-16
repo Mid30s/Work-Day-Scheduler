@@ -22,15 +22,17 @@
   // TODO: Add code to display the current date in the header of the page.
 
 
-//use dayjs to show time and date
-function displayTime() {
-  var today = dayjs();
-  $('#currentDay').text(today.format('dddd,D MMM YYYY [at] h:mm:ss A'));
-}
-displayTime();
-setInterval(displayTime,1000);
-
+//wrap all code until the browser has finished rendering
 $(document).ready(function(){
+  //use day.js to show time and date
+  function displayTime() {
+    var today = dayjs();
+    $('#currentDay').text(today.format('dddd,D MMM YYYY [at] h:mm:ss A'));
+  }
+  displayTime();
+  setInterval(displayTime,1000);
+
+  //add a listener for click events
   $(".saveBtn"). on('click',function(){
     // jQuery traversing to select html elements
     var time = $(this).parent().attr('id');
@@ -50,17 +52,20 @@ $(document).ready(function(){
     console.log(currentHour); 
   
     $('.time-block').each(function(){
-      //get hour value from time-block
-      var blockHour = parseInt($(this).attr('id').split("-")[1]);
-      //test to show time block hours in 24-hours time
+      //get hour number value from time-block
+      var blockHour = $(this).attr('id').split("-")[1];
+      //test to show time block hours number in 24-hours time
       console.log(blockHour);
       
       //choose class to apply color
       if(blockHour < currentHour) {
+        $(this).removeClass("present");
+        $(this).removeClass("future");
         $(this). addClass('past');
       }
       else if(blockHour === currentHour) {
         $(this).removeClass("past");
+        $(this).removeClass("future");
         $(this).addClass("present");
       }
       else{
@@ -71,10 +76,13 @@ $(document).ready(function(){
     });
   }
   timeBlockColor();
-  // check the color class every 30 seconds
+  // check the color class every 30 seconds, so it will auto refresh every 30s when browser is open
   setInterval(timeBlockColor,30000);
-
+  
   //display all text in description
+  //test
+  console.log(localStorage.getItem("hour-9"));
+
   $("#hour-9 .description").val(localStorage.getItem("hour-9"));
   $("#hour-10 .description").val(localStorage.getItem("hour-10"));
   $("#hour-11 .description").val(localStorage.getItem("hour-11"));
@@ -86,15 +94,4 @@ $(document).ready(function(){
   $("#hour-17 .description").val(localStorage.getItem("hour-17"));
 })
 
-//clear local storage at 00:00 midnight each day and check time every 30 seconds
-setInterval(function(){
-  var hour = dayjs().hour();
-  var minute = dayjs().minute();
-  //test
-  console.log(hour,minute)
-  
-  if (hour == 0 && minute == 0) {
-    localStorage.clear();
-  }    
-},30000)
 
