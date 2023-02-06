@@ -63,7 +63,7 @@ $(document).ready(function(){
         $(this).removeClass("future");
         $(this). addClass('past');
       }
-      else if(blockHour === currentHour) {
+      else if(blockHour == currentHour) {
         $(this).removeClass("past");
         $(this).removeClass("future");
         $(this).addClass("present");
